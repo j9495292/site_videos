@@ -1,0 +1,78 @@
+# [ 环境 / Environment ]
+# 包含敏感信息或环境特定的配置，例如数据库密码、API密钥等
+# 请确保你有一个 .env.example 文件提交到仓库中作为模板
+.env
+
+# [ 依赖 / Dependencies ]
+# Composer 安装的依赖包
+vendor/
+# Composer lock 文件通常应该提交到版本库以保证依赖一致性，所以这里注释掉
+# composer.lock
+
+# Node.js / npm / yarn / pnpm 依赖 (如果你的前端使用了这些工具)
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+# 日志文件
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# [ 运行时 / Runtime ]
+# ThinkPHP / Dolphin PHP 运行时生成的文件，包括缓存、日志、Session 等
+runtime/
+
+# [ 上传文件 / User Uploads ]
+# 用户通过后台或前台上传的文件，这通常是必须忽略的
+# 检查你的 Dolphin PHP 项目中实际的上传目录路径，可能是 public/uploads/ 或其他
+public/uploads/
+public/img/
+# 如果你的上传目录在根目录，可能是下面这样
+# upload/
+
+# [ 构建产物 / Build Artifacts ]
+# 如果你使用了前端构建工具 (如 Webpack, Vite, Mix)
+public/build/
+public/hot
+# 如果使用了 storage:link 类似的功能创建了符号链接
+public/storage
+# Laravel Mix manifest 文件 (如果使用)
+public/mix-manifest.json
+
+# [ IDE / 编辑器配置 / Editor & IDE ]
+# 各种IDE或编辑器的项目配置文件
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+nbproject/
+*.DS_Store
+Thumbs.db
+._*
+
+# [ 日志文件 / Log Files ]
+# 其他可能的日志文件位置 (虽然 runtime/ 应该包含了大部分)
+*.log
+logs/
+
+# [ 临时文件 / Temporary Files ]
+*.tmp
+*.temp
+*~
+*.bak
+*.swp
+*.backup
+
+# [ 操作系统文件 / Operating System Files ]
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+
+# [ 其他 / Others ]
+# 例如本地的数据库备份文件 (如果存储在项目目录内)
+# data/backup/*.sql
+# data/backup/*.zip
+
+# 如果有其他特定于你项目需要忽略的文件或目录，请添加到这里

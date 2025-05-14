@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <title>{$ds_title}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <link rel="stylesheet" href="__INDEX__/public.css">
+    <script src="__INDEX__/js/jquery.min.js?ver={:time()}"></script>
+    <script src="__INDEX__/js/swiper.min.js?ver={:time()}"></script>
+    <script src="__INDEX__/public.js?ver={:time()}"></script>
+</head>
+<body class="ds-bg" {empty name="$ds_bg"}{else/}style="background-image: url({$ds_bg});"{/empty}>
+<main class="page">
+
+    <div class="ds-info">
+        <div style="margin-top: 0" class="title">{:mb_substr($info['title'],0,25)}...</div>
+    </div>
+
+    <div class="ds-type">
+        {volist name="pays" id="vo"}
+        <a href="{:iurl('pay',['id' => $info['id'],'type' => $vo['type'],'model' => 'book'])}" class="item">{$vo.name}</a>
+        {/volist}
+        <a href="{:iurl('book')}" class="more">更多精彩小说</a>
+        <a href="{$tousu}" class="tousu">投诉</a>
+    </div>
+
+</main>
+</body>
+</html>

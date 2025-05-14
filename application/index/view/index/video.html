@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <title>{$conf['title']} - 视频</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <link rel="stylesheet" href="__INDEX__/public.css">
+    <script>APP_PATH = "{:iurl()}";</script>
+    <script src="__INDEX__/js/jquery.min.js?ver={:time()}"></script>
+    <script src="__INDEX__/js/swiper.min.js?ver={:time()}"></script>
+    <script src="__INDEX__/public.js?ver={:time()}"></script>
+</head>
+<body>
+<main class="page">
+    <header class="header fixed">
+        <a class="collect" data-url="{$conf['qr_url']}" data-tips="{$conf['sc_tips']}" href="javascript:;">永久地址</a>
+        <input class="search" type="text" placeholder="请输入搜索关键词...">
+        <a class="report" href="{$tousu}">投诉</a>
+    </header>
+    <div class="header-hd"></div>
+
+    <div class="hot-catgory">
+        <div class="title">热门分类</div>
+        <ul>
+            {volist name="cat" id="vo"}
+            {eq name="$vo.id" value="$cat_id"}
+            <li class="active"><a href="{:iurl('video',['cat' => $vo['id']])}">{$vo.name}</a></li>
+            {else/}
+            <li><a href="{:iurl('video',['cat' => $vo['id']])}">{$vo.name}</a></li>
+            {/eq}
+            {/volist}
+        </ul>
+    </div>
+
+    <style>
+        .aijax {
+            height: 40px;
+            line-height: 40px;
+            background: #ddd;
+            font-size: 14px;
+            margin: 5px;
+            border-radius: 5px;
+            color: #000;
+            text-align: center;
+        }
+    </style>
+    <div class="video-list js-load">
+        <ul></ul>
+    </div>
+    <div id="loading" class="aijax"><p>加载更多</p></div>
+
+    <div class="backtop"></div>
+
+    <div class="tabbar-hd"></div>
+    <div class="tabbar">
+        {include file="tabbar"/}
+    </div>
+    
+      
+    <div class="modal-collect" style="display:none">
+        <div class="box">
+            <div class="title">获永久地址</div>
+            <div class="body">
+                <div class="qrcode">
+                    <img src="/static/index/images/zjewm.png">
+                </div>
+                <div class="tips">
+                    <span  id="copyMe">http://shop.sc.weibo.com.vdcxlewq.htorp.cc</span>
+                    <input type="button" value="复制到浏览器打开" id="copy">
+                </div>
+                
+                <div class="tips">收藏本站，永久观看。</div>
+            </div>
+            <div class="btn">
+                <a href="javascript:;" class="close">关闭</a>
+            </div>
+        </div>
+    </div>
+</main>
+<script>
+    CallFunction(['backtop','collect','catLoad','videoSearch']);
+</script>
+
+<script src="https://cdn.bootcss.com/clipboard.js/2.0.4/clipboard.js"></script>
+<script>
+    var clipboard = new ClipboardJS("#copy", {
+        text: function () {
+            return $("#copyMe").text();
+        }
+    });
+
+    clipboard.on('success', function (e) {
+        alert("已复制到粘贴板！");
+        console.log(e);
+    });
+
+    clipboard.on('error', function (e) {
+        console.log(e);
+    });
+</script>
+
+
+
+<script>
+    CallFunction(['banner','backtop','collect','indexLoad','videoSearch']);
+    
+    var url = $('.header .collect').attr('data-url'),
+        tips = $('.header .collect').attr('data-tips') || '扫码二维码或者截图获永久地址';
+    console.log(url);
+    // var html = '<div class="modal-collect"><div class="box"><div class="title">收藏</div><div class="body">'+
+    // '<div class="qrcode"><img src="'+APP_PATH+'/qrcode?url='+url+'"></div><div class="tips">'+tips+'</div></div><div class="btn"><a href="javascript:;" class="close">关闭</a></div></div></div>';
+    
+    //     var html = '<div class="modal-collect"><div class="box"><div class="title">获永久地址</div><div class="body">'+
+    // '<div class="qrcode"><img src="/static/index/images/zjewm.png"></div><div class="tips">http://kgpy9ydz.cfhtun.top</div><div class="tips">'+tips+'</div></div><div class="btn"><a href="javascript:;" class="close">关闭</a></div></div></div>';
+    
+    // if($('.modal-collect').length == 0){
+    //     $('body').append(html);
+    //     $('.modal-collect').css('display','flex');
+    // }else{
+        // $('.modal-collect').css('display','flex');
+    // }
+    
+    
+     $('.collect').on('click',function(){
+        $('.modal-collect').show();
+    });
+    
+    $('.modal-collect .close').on('click',function(){
+        $('.modal-collect').hide();
+    });
+</script>
+</body>
+</html>

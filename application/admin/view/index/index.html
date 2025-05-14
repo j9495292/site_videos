@@ -1,0 +1,206 @@
+{extend name="layout" /}
+
+{block name="page-header"}{/block}
+
+{block name="content"}
+<div class="row">
+    <div class="col-md-12">
+        <div class="block block-bordered">
+            <div class="block-header bg-gray-lighter">
+                <h3 class="block-title">统计信息</h3>
+            </div>
+            <div class="block-content">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12">
+                        <div class="row">
+                            <div class="col-sm-4 col-md-4">
+                                <a class="block block-link-hover3 text-center" href="javascript:;">
+                                    <div class="block-content block-content-full">
+                                        <div class="h1 font-w700 text-primary" data-toggle="countTo" data-to="{$today_money}">{:number_format($today_money,2)}</div>
+                                    </div>
+                                    <div class="block-content block-content-full block-content-mini bg-gray-lighter text-muted font-w600">今日成交（元）</div>
+                                </a>
+                            </div>
+                            <div class="col-sm-4 col-md-4">
+                                <a class="block block-link-hover3 text-center" href="javascript:;">
+                                    <div class="block-content block-content-full">
+                                        <div class="h1 font-w700 text-success" data-toggle="countTo" data-to="{$yesterday_money}">{:number_format($yesterday_money,2)}</div>
+                                    </div>
+                                    <div class="block-content block-content-full block-content-mini bg-gray-lighter text-muted font-w600">昨日成交（元）</div>
+                                </a>
+                            </div>
+                            <div class="col-sm-4 col-md-4">
+                                <a class="block block-link-hover3 text-center" href="javascript:;">
+                                    <div class="block-content block-content-full">
+                                        <div class="h1 font-w700 text-info" data-toggle="countTo" data-to="{$agent_count}">{$agent_count}</div>
+                                    </div>
+                                    <div class="block-content block-content-full block-content-mini bg-gray-lighter text-muted font-w600">代理统计（个）</div>
+                                </a>
+                            </div>
+                            <div class="col-sm-4 col-md-4">
+                                <a class="block block-link-hover3 text-center" href="javascript:;">
+                                    <div class="block-content block-content-full">
+                                        <div class="h1 font-w700 text-warning"><span data-toggle="countTo" data-to="{$user_count}">{$user_count}</span></div>
+                                    </div>
+                                    <div class="block-content block-content-full block-content-mini bg-gray-lighter text-muted font-w600">会员统计（个）</div>
+                                </a>
+                            </div>
+
+                            <div class="col-sm-4 col-md-4">
+                                <a class="block block-link-hover3 text-center" href="javascript:;">
+                                    <div class="block-content block-content-full">
+                                        <div class="h1 font-w700 text-primary" data-toggle="countTo" data-to="{$today_visitor}">{$today_visitor}</div>
+                                    </div>
+                                    <div class="block-content block-content-full block-content-mini bg-gray-lighter text-muted font-w600">今日访客</div>
+                                </a>
+                            </div>
+                            <div class="col-sm-4 col-md-4">
+                                <a class="block block-link-hover3 text-center" href="javascript:;">
+                                    <div class="block-content block-content-full">
+                                        <div class="h1 font-w700 text-primary" data-toggle="countTo" data-to="{$today_browse}">
+                                            {eq name="today_browse" value=""}
+                                                0
+                                            {else/}
+                                                {$today_browse}
+                                            {/eq}
+                                        </div>
+                                    </div>
+                                    <div class="block-content block-content-full block-content-mini bg-gray-lighter text-muted font-w600">今日浏览量</div>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a title="删除昨天之前支付订单" icon="fa fa-plus-circle" class="btn btn-primary" onclick="del(1)"><i class="fa fa-plus-circle"></i> 删除昨天之前支付订单</a>
+
+<a title="删除3天之前支付订单" icon="fa fa-plus-circle" class="btn btn-primary"  onclick="del(3)"><i class="fa fa-plus-circle"></i> 删除3天之前支付订单</a>
+
+<a title="删除视频" icon="fa fa-plus-circle" class="btn btn-primary"  onclick="delsp()"><i class="fa fa-plus-circle"></i> 删除所有视频</a>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="block block-bordered">
+            <div class="block-header bg-gray-lighter">
+                <h3 class="block-title">订单统计</h3>
+            </div>
+            <div class="block-content">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12">
+                        <div class="row">
+                            <div class="col-sm-6 col-md-6">
+                                <a class="block block-link-hover3 text-center" href="javascript:;">
+                                    <div class="block-content block-content-full">
+                                        <div class="h1 font-w700 text-primary" data-toggle="countTo" data-to="{$today_order}">{$today_order}</div>
+                                    </div>
+                                    <div class="block-content block-content-full block-content-mini bg-gray-lighter text-muted font-w600">今日订单（条）</div>
+                                </a>
+                            </div>
+                            <div class="col-sm-6 col-md-6">
+                                <a class="block block-link-hover3 text-center" href="javascript:;">
+                                    <div class="block-content block-content-full">
+                                        <div class="h1 font-w700 text-success" data-toggle="countTo" data-to="{$yesterday_order}">{$yesterday_order}</div>
+                                    </div>
+                                    <div class="block-content block-content-full block-content-mini bg-gray-lighter text-muted font-w600">昨日订单（条）</div>
+                                </a>
+                            </div>
+                            <div class="col-sm-6 col-md-6">
+                                <a class="block block-link-hover3 text-center" href="javascript:;">
+                                    <div class="block-content block-content-full">
+                                        <div class="h1 font-w700 text-info" data-toggle="countTo" data-to="{$all_order}">{$all_order}</div>
+                                    </div>
+                                    <div class="block-content block-content-full block-content-mini bg-gray-lighter text-muted font-w600">总订单数（条）</div>
+                                </a>
+                            </div>
+                            <div class="col-sm-6 col-md-6">
+                                <a class="block block-link-hover3 text-center" href="javascript:;">
+                                    <div class="block-content block-content-full">
+                                        <div class="h1 font-w700 text-warning" data-toggle="countTo" data-to="{$all_money}">{:number_format($all_money,2)}</div>
+                                    </div>
+                                    <div class="block-content block-content-full block-content-mini bg-gray-lighter text-muted font-w600">总成交额（元）</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="block block-bordered">
+            <div class="block-header bg-gray-lighter">
+                <h3 class="block-title">扣量统计</h3>
+            </div>
+            <div class="block-content">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12">
+                        <div class="row">
+                            <div class="col-sm-6 col-md-6">
+                                <a class="block block-link-hover3 text-center" href="javascript:;">
+                                    <div class="block-content block-content-full">
+                                        <div class="h1 font-w700 text-primary" data-toggle="countTo" data-to="{$kouliang_count}">{:number_format($kouliang_count,2)}</div>
+                                    </div>
+                                    <div class="block-content block-content-full block-content-mini bg-gray-lighter text-muted font-w600">今日扣量金额（元）</div>
+                                </a>
+                            </div>
+                            <div class="col-sm-6 col-md-6">
+                                <a class="block block-link-hover3 text-center" href="javascript:;">
+                                    <div class="block-content block-content-full">
+                                        <div class="h1 font-w700 text-success" data-toggle="countTo" data-to="{$kouliang_order}">{$kouliang_order}</div>
+                                    </div>
+                                    <div class="block-content block-content-full block-content-mini bg-gray-lighter text-muted font-w600">今日扣量订单（条）</div>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+
+{block name="script"}
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: '{:url("checkUpdate")}',
+            type: 'GET'
+        }).done(function(data) {
+            $('#product-auth').html(data.auth);
+            $('#product-update').html($('#product-update').text() + ' ' + data.update);
+        });
+    });
+            
+    function del(day)
+    {
+        $.ajax({
+            url: '{:url("orderDayDel")}',
+            type: 'POST',
+            data:{"day":day}
+        }).done(function() {
+            alert("删除成功")
+        });
+    }
+             
+    function delsp()
+    {
+        $.ajax({
+            url: '{:url("spDel")}',
+            type: 'POST'
+        }).done(function() {
+            alert("删除成功")
+        });
+    }
+    
+        
+</script>
+{/block}

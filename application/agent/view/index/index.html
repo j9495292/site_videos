@@ -1,0 +1,182 @@
+{extend name="layout" /}
+
+{block name="style"}
+<style>
+    .info-box{
+        background: #f9f9f9;
+        padding: 10px 40px;
+        height: 220px;
+    }
+    .info-box .info-item{
+        font-size: 18px;
+        height: 40px;
+        line-height: 40px;
+        color: #aaa;
+        font-weight: bold;
+    }
+</style>
+{/block}
+
+{block name="page-header"}{/block}
+
+{block name="content"}
+<div class="row">
+    <div class="col-md-12">
+        <div class="block block-bordered">
+            <div class="block-header bg-gray-lighter">
+                <h3 class="block-title">个人信息</h3>
+            </div>
+            <div class="block-content">
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="block-header bg-gray-lighter" style="background-color: #e5e5e5">
+                            <h3 class="block-title">个人信息</h3>
+                        </div>
+                        <div class="block info-box block-link-hover3">
+                            <div class="info-item">
+                                我的账号：<span>{$user['username']}</span>
+                            </div>
+                            <div class="info-item">
+                                视频推广：<span>{$video_count}条</span>
+                            </div>
+                            <div class="info-item">
+                                小说推广：<span>{$book_count}条</span>
+                            </div>
+                            <div class="info-item">
+                                我的余额：<span>{$user['money']}￥</span>
+                            </div>
+                            <div class="info-item">
+                                注册时间：<span>{:date('Y-m-d',$user['create_time'])}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6">
+                        <div class="block-header bg-gray-lighter" style="background-color: #e5e5e5">
+                            <h3 class="block-title">网站公告</h3>
+                        </div>
+                        <div class="block info-box block-link-hover3" style="padding: 10px 20px;">
+                            {volist name="notice" id="vo"}
+                                <div class="info-item" style="font-size: 16px">
+                                    <a onclick="notice_detail('{$vo.title}','{$vo.content}')" style="color: #aaa">{$vo.title}</a>
+                                    <span style="float: right;">{:date('Y-m-d',$vo['create_time'])}</span>
+                                </div>
+                            {/volist}
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-12 col-md-12">
+                        <div class="row">
+                            <div class="col-sm-3 col-md-3">
+                                <a class="block block-link-hover3 text-center" href="javascript:;">
+                                    <div class="block-content block-content-full">
+                                        <div class="h1 font-w700 text-primary" data-toggle="countTo" data-to="{$user_count}">{$user_count}</div>
+                                    </div>
+                                    <div class="block-content block-content-full block-content-mini bg-gray-lighter text-muted font-w600">我的会员</div>
+                                </a>
+                            </div>
+
+                            <div class="col-sm-3 col-md-3">
+                                <a class="block block-link-hover3 text-center" href="javascript:;">
+                                    <div class="block-content block-content-full">
+                                        <div class="h1 font-w700 text-primary" data-toggle="countTo" data-to="{$user['money']}">{$user['money']}</div>
+                                    </div>
+                                    <div class="block-content block-content-full block-content-mini bg-gray-lighter text-muted font-w600">我的余额（元）</div>
+                                </a>
+                            </div>
+                            
+                            <div class="col-sm-3 col-md-3">
+                                <a class="block block-link-hover3 text-center" href="javascript:;">
+                                    <div class="block-content block-content-full">
+                                        <div class="h1 font-w700 text-primary"><span data-toggle="countTo" data-to="{$order_count}">{$order_count}</span></div>
+                                    </div>
+                                    <div class="block-content block-content-full block-content-mini bg-gray-lighter text-muted font-w600">总订单数量</div>
+                                </a>
+                            </div>
+
+                            <div class="col-sm-3 col-md-3">
+                                <a class="block block-link-hover3 text-center" href="javascript:;">
+                                    <div class="block-content block-content-full">
+                                        <div class="h1 font-w700 text-success" data-toggle="countTo" data-to="{$today_money}">{:number_format($today_money,2)}</div>
+                                    </div>
+                                    <div class="block-content block-content-full block-content-mini bg-gray-lighter text-muted font-w600">今日收入（元）</div>
+                                </a>
+                            </div>
+                            
+                            <div class="col-sm-3 col-md-3">
+                                <a class="block block-link-hover3 text-center" href="javascript:;">
+                                    <div class="block-content block-content-full">
+                                        <div class="h1 font-w700 text-success" data-toggle="countTo" data-to="{$today_order_count}">{$today_order_count}</div>
+                                    </div>
+                                    <div class="block-content block-content-full block-content-mini bg-gray-lighter text-muted font-w600">今日订单数</div>
+                                </a>
+                            </div>
+                            
+                            <div class="col-sm-3 col-md-3">
+                                <a class="block block-link-hover3 text-center" href="javascript:;">
+                                    <div class="block-content block-content-full">
+                                        <div class="h1 font-w700 text-info" data-toggle="countTo" data-to="{$yes_money}">{:number_format($yes_money,2)}</div>
+                                    </div>
+                                    <div class="block-content block-content-full block-content-mini bg-gray-lighter text-muted font-w600">昨日收入（元）</div>
+                                </a>
+                            </div>
+                            
+                            <div class="col-sm-3 col-md-3">
+                                <a class="block block-link-hover3 text-center" href="javascript:;">
+                                    <div class="block-content block-content-full">
+                                        <div class="h1 font-w700 text-info" data-toggle="countTo" data-to="{$yes_order_count}">{$yes_order_count}</div>
+                                    </div>
+                                    <div class="block-content block-content-full block-content-mini bg-gray-lighter text-muted font-w600">昨日订单数</div>
+                                </a>
+                            </div>
+                            
+                            
+                            
+                            <div class="col-sm-3 col-md-3">
+                                <a class="block block-link-hover3 text-center" href="javascript:;">
+                                    <div class="block-content block-content-full">
+                                        <div class="h1 font-w700 text-warning"><span data-toggle="countTo" data-to="{$today_visitor}">{$today_visitor}</span></div>
+                                    </div>
+                                    <div class="block-content block-content-full block-content-mini bg-gray-lighter text-muted font-w600">今日访客</div>
+                                </a>
+                            </div>
+                            
+                            <div class="col-sm-3 col-md-3">
+                                <a class="block block-link-hover3 text-center" href="javascript:;">
+                                    <div class="block-content block-content-full">
+                                        <div class="h1 font-w700 text-warning">
+                                            <span data-toggle="countTo" data-to="{$today_browse}">
+                                                {eq name="today_browse" value=""}
+                                                    0
+                                                {else/}
+                                                    {$today_browse}
+                                                {/eq}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="block-content block-content-full block-content-mini bg-gray-lighter text-muted font-w600">今日浏览量</div>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+
+{block name="script"}
+<script type="text/javascript">
+function notice_detail(title,content) {
+    layer.open({
+      title: title,
+      area: ['600px', '360px'],
+      content: content
+    });
+}
+layer.alert("{$notice_one.content}", {title:"{$notice_one.title}"});
+</script>
+{/block}

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <title>{$conf['title']}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <link rel="stylesheet" href="__INDEX__/public.css">
+    <script src="__INDEX__/js/jquery.min.js?ver={:time()}"></script>
+    <script src="__INDEX__/js/swiper.min.js?ver={:time()}"></script>
+    <script src="__INDEX__/public.js?ver={:time()}"></script>
+</head>
+<body>
+<main class="page">
+    <div class="content-header">
+        <a href="{:iurl('book')}" class="back">返回</a>
+        <div class="title">{$info['title']}</div>
+        <div class="other"></div>
+    </div>
+
+    <div class="book-content">
+        {$info['content']|htmlspecialchars_decode|raw}
+    </div>
+
+    <div class="backtop"></div>
+</main>
+<script>
+    CallFunction(['backtop']);
+    {eq name="ts_login" value="1"}
+    CallFunction(['openRegister'])
+    {/eq}
+</script>
+</body>
+</html>

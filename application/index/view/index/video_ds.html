@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <title>{$ds_title}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <link rel="stylesheet" href="__INDEX__/public.css">
+    <script src="__INDEX__/js/jquery.min.js?ver={:time()}"></script>
+    <script src="__INDEX__/js/swiper.min.js?ver={:time()}"></script>
+    <script src="__INDEX__/public.js?ver={:time()}"></script>
+</head>
+<body class="ds-bg" {empty name="$ds_bg"}{else/}style="background-image: url({$ds_bg});"{/empty}>
+<main class="page">
+
+    <div class="ds-info">
+        <div class="thumb">
+            <img src="{$video['cover']}">
+        </div>
+        <div class="title">{:mb_substr($video['title'],0,25)}...</div>
+    </div>
+
+    <div class="ds-type">
+        {volist name="pays" id="vo"}
+            {eq name="vo.type" value="shikan"}
+            <a href="{:iurl('video_detail',['type' => 'sk','id' => $video['id']])}" class="item">{$vo.name}</a>
+            {else/}
+            <a href="{:iurl('pay',['id' => $video['id'],'type' => $vo['type'],'model' => 'video'])}" class="item">{$vo.name}</a>
+            {/eq}
+        {/volist}
+        <a href="{:iurl('index')}" class="more">更多精彩视频</a>
+        <a href="{$tousu}" class="tousu">投诉</a>
+    </div>
+
+</main>
+</body>
+</html>

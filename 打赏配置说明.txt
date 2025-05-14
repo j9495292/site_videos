@@ -1,0 +1,18 @@
+安装说明：
+
+测试环境  PHP7.2+Mysql5.6
+
+PHP扩展: fileinfo+opcache+memcache+memcached+apcu
+
+PHP配置文件修改	memory_limit=512M
+
+导入数据，并配置数据库配置文件：/config/database.php
+
+运行目录设置为	/public
+
+伪静态设置为	thinkphp规则
+
+
+后台地址	/admin.php	后台账号admin  后台密码admin123456
+
+代理地址   /agent		代理测试dkewl  代理密码123456

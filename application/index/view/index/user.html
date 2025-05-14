@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <title>{$conf['title']} - 我的</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <link rel="stylesheet" href="__INDEX__/public.css">
+    <script>APP_PATH = "{:iurl()}";</script>
+    <script src="__INDEX__/js/jquery.min.js?ver={:time()}"></script>
+    <script src="__INDEX__/js/swiper.min.js?ver={:time()}"></script>
+    <script src="__INDEX__/public.js?ver={:time()}"></script>
+</head>
+<body>
+<main class="page">
+
+    <div class="user-heaer">
+        <a class="report" href="{$tousu}">投诉</a>
+    </div>
+
+    <div class="user-info">
+        <div class="usericon">
+            <img src="__INDEX__/images/userhead.jpg">
+        </div>
+        <div class="info">
+            {eq name="is_login" value="1"}
+                <h1 class="nickname">账号:{$info['username']}</h1>
+                <p>
+                    {eq name="$sp_vip" value="1"}
+                    <span class="vip">视频VIP</span>
+                    {/eq}
+                    &nbsp;
+                    {eq name="$xs_vip" value="1"}
+                    <span class="vip">小说VIP</span>
+                    {/eq}
+
+                    {if ($xs_vip == 0) AND ($sp_vip == 0)}
+                    <span>普通用户</span>
+                    {/if}
+                </p>
+                {eq name="$sp_vip" value="1"}
+                <div class="expire">视频VIP到期：{:date('Y-m-d H:i',$info['sp_vip'])}</div>
+                {/eq}
+                {eq name="$xs_vip" value="1"}
+                <div class="expire">小说VIP到期：{:date('Y-m-d H:i',$info['xs_vip'])}</div>
+                {/eq}
+            {else/}
+                <h1 class="nickname">未登录</h1>
+                <p>请先登录用户账号</p>
+            {/eq}
+        </div>
+
+        {eq name="is_login" value="1"}
+        <div class="logout">
+            <a href="javascript:;">退出登录</a>
+        </div>
+        {else/}
+        <div class="login-register">
+            <a href="{:iurl('login')}">登录/注册</a>
+        </div>
+        {/eq}
+    </div>
+
+    <div class="user-total">
+        <div class="item">
+            <div class="value">{$yg_video}</div>
+            <div class="name">已购视频</div>
+        </div>
+        <div class="item">
+            <div class="value">{$yg_book}</div>
+            <div class="name">已购小说</div>
+        </div>
+    </div>
+
+    <div class="user-list">
+        <div class="type">
+            <div data-type="yg-video" class="item">已购视频</div>
+            <div data-type="yg-book" class="item">已购小说</div>
+            <div data-type="mf-video" class="item">免费视频</div>
+            <div data-type="mf-book" class="item">免费小说</div>
+        </div>
+        <div class="list">
+
+        </div>
+    </div>
+
+    <div class="tabbar-hd"></div>
+    <div class="tabbar">
+        {include file="tabbar"/}
+    </div>
+</main>
+<script>
+    CallFunction(['userChangeBind','userLogout']);
+</script>
+</body>
+</html>

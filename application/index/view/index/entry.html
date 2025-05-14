@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{$conf['yd_title']}</title>
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            background-image: url("{$conf['yd_bg']|get_file_path}");
+            display: flex;
+            justify-content: center;
+            align-items:center;
+            min-height: 100vh;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+        }
+        .page{
+            width: 80vw;
+        }
+        .page .title{
+            font-size: 18px;
+            text-align: center;
+            padding: 30px;
+            color:#fff;
+        }
+        .contianer  a{
+            height: 50px;
+            width: 200px;
+            text-decoration: none;
+            background-color: #ff5500;
+            color: #fff;
+            line-height: 50px;
+            display: block;
+            text-align: center;
+            margin: 10px auto;
+        }
+        .page .fot-title{
+            margin-top: 30px;
+            font-size: 15px;
+            color:#fff;
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+    <div class="title">{$conf['yg_hy_title']}</div>
+    <div class="contianer">
+        <a href="{:iurl('index')}">{$conf['yg_btn_1']}</a>
+        <a href="{:iurl('book')}">{$conf['yg_btn_2']}</a>
+        <a href="{$conf['kf_url']}">{$conf['yg_btn_4']}</a>
+        <a href="{:iurl('user')}#mf-book">{$conf['yg_btn_3']}</a>
+        <a href="{:iurl('user')}#mf-video">{$conf['yg_btn_5']}</a>
+    </div>
+    <div class="fot-title">{$conf['yg_tips']}</div>
+</div>
+</body>
+
+</html>
