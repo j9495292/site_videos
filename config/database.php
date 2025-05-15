@@ -6,20 +6,21 @@
 // +----------------------------------------------------------------------
 // | 官方网站: http://dolphinphp.com
 // +----------------------------------------------------------------------
+use think\facade\Env;
 
 return [
     // 数据库类型
     'type'            => 'mysql',
     // 服务器地址
-    'hostname'        => 'localhost',
+    'hostname'        => Env::get('database.hostname', 'localhost'),
     // 数据库名
-    'database'        => 'db_yellow',
+    'database'        => Env::get('database.database', 'db_website'),
     // 用户名
-    'username'        => 'yellow',
+    'username'        => Env::get('database.username', 'root'),
     // 密码
-    'password'        => 'bb8023.',
+    'password'        => Env::get('database.password', ''),
     // 端口
-    'hostport'        => '3306',
+    'hostport'        => Env::get('database.port', '3306'),
     // 连接dsn
     'dsn'             => '',
     // 数据库连接参数
@@ -29,7 +30,7 @@ return [
     // 数据库表前缀
     'prefix'          => 'dp_',
     // 数据库调试模式
-    'debug'           => true,
+    'debug'           => Env::get('database.debug', false),
     // 数据库部署方式:0 集中式(单一服务器),1 分布式(主从服务器)
     'deploy'          => 0,
     // 数据库读写是否分离 主从式有效

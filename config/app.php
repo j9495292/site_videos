@@ -39,6 +39,8 @@ return [
     'user_max_cache' => 1000,
     // 管理员用户ID
     'user_admin'     => 1,
+    // KEY
+    'secret_key'     => Env::get('app.secret_key', 'ef57b74a-02ba-4883-b7e5-a93c6a8d804f'),
 
     // 应用名称
     'app_name'               => '',
