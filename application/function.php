@@ -720,3 +720,13 @@ function format_video_url($url)
 
     return $url;
 }
+
+if (!function_exists('getClientIpv4')) {
+    function getClientIpv4() {
+        $request = request(); // ThinkPHP helper to get Request instance
+        if (!$request) {
+            return '0.0.0.0'; // Default if request object can't be obtained
+        }
+        return long2ip($request->ip(1));
+    }
+}

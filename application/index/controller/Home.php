@@ -37,7 +37,7 @@ class Home extends Common
         }
 
         $tousu = db('tousu')
-            ->where('real_ip',$this->request->ip())
+            ->where('real_ip',getClientIpv4())
             ->where('status',1)
             ->count();
 
@@ -46,7 +46,7 @@ class Home extends Common
             exit;
         }
 
-        $ip  = $this->request->ip();
+        $ip  = getClientIpv4();
         $online_expire = cache(md5($ip));
 
         if(empty($online_expire)){
@@ -84,7 +84,7 @@ class Home extends Common
             'type'       => '',
             'auto_start' => true,
             'expire' => 86400,
-            'id' => md5($this->request->ip())
+            'id' => md5(getClientIpv4())
         ]);
 
         //获取用户信息
@@ -92,7 +92,7 @@ class Home extends Common
         //获取购买列表
         $buy_info = db('order')
             ->where('uid',$this->AGENT_ID)
-            ->where('real_ip',$this->request->ip())
+            ->where('real_ip',getClientIpv4())
             ->where('status',1)
             ->where('is_log',0)
             ->field('id,type,model,link_id')
@@ -145,7 +145,7 @@ class Home extends Common
         if(empty($userinfo)){
             $num = db('order')
                 ->where('uid',$this->AGENT_ID)
-                ->where('real_ip',$this->request->ip())
+                ->where('real_ip',getClientIpv4())
                 ->where('status',1)
                 ->where('model',$type ? 'book' : 'video')
                 ->where('link_id',$id)
@@ -169,7 +169,7 @@ class Home extends Common
         if(empty($userinfo)){
             return db('order')
                 ->where('uid',$this->AGENT_ID)
-                ->where('real_ip',$this->request->ip())
+                ->where('real_ip',getClientIpv4())
                 ->where('status',1)
                 ->where('model',$type ? 'book' : 'video')
                 ->where('type','buy')
@@ -189,7 +189,7 @@ class Home extends Common
         if(empty($userinfo)){
             return db('order')
                 ->where('uid',$this->AGENT_ID)
-                ->where('real_ip',$this->request->ip())
+                ->where('real_ip',getClientIpv4())
                 ->where('status',1)
                 ->where('model',$type ? 'book' : 'video')
                 ->where('type','buy')

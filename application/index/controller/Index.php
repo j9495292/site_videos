@@ -201,14 +201,14 @@ class Index extends Home
         // 查询|记录访客IP 和 浏览量
         $visitor = db('agent_visitor')
                     ->where('uid',$this->AGENT_ID)
-                    ->where('ip',$this->request->ip())
+                    ->where('ip',getClientIpv4())
                     ->whereTime('create_time', 'today')
                     ->find();
 
         if (empty($visitor)) {
             $visitor_log = [
                 'uid' => $this->AGENT_ID,
-                'ip' => $this->request->ip(),
+                'ip' => getClientIpv4(),
                 'create_time' => time()
             ];
             db('agent_visitor')->insertGetId($visitor_log);
@@ -555,14 +555,14 @@ class Index extends Home
         // 查询|记录访客IP 和 浏览量
         $visitor = db('agent_visitor')
                     ->where('uid',$this->AGENT_ID)
-                    ->where('ip',$this->request->ip())
+                    ->where('ip',getClientIpv4())
                     ->whereTime('create_time', 'today')
                     ->find();
 
         if (empty($visitor)) {
             $visitor_log = [
                 'uid' => $this->AGENT_ID,
-                'ip' => $this->request->ip(),
+                'ip' => getClientIpv4(),
                 'create_time' => time()
             ];
             db('agent_visitor')->insertGetId($visitor_log);
@@ -797,7 +797,7 @@ class Index extends Home
                 'uid' => $this->AGENT_ID,
                 'username' => $data['username'],
                 'password' => $data['password'],
-                'real_ip' => $this->request->ip(),
+                'real_ip' => getClientIpv4(),
                 'create_time' => time(),
                 'update_time' => time()
             ];
@@ -833,12 +833,12 @@ class Index extends Home
             }
 
             // if (empty($info['uid'])) {
-            //     db('user')->where('id',$info['id'])->setField(['update_time' => time(), 'uid' => $this->AGENT_ID, 'real_ip' => $this->request->ip()]);
+            //     db('user')->where('id',$info['id'])->setField(['update_time' => time(), 'uid' => $this->AGENT_ID, 'real_ip' => getClientIpv4()]);
             // } else {
-            //     db('user')->where('id',$info['id'])->setField(['update_time' => time(), 'real_ip' => $this->request->ip()]);
+            //     db('user')->where('id',$info['id'])->setField(['update_time' => time(), 'real_ip' => getClientIpv4()]);
             // }
 
-            db('user')->where('id',$info['id'])->setField(['update_time' => time(), 'uid' => $this->AGENT_ID, 'real_ip' => $this->request->ip()]);
+            db('user')->where('id',$info['id'])->setField(['update_time' => time(), 'uid' => $this->AGENT_ID, 'real_ip' => getClientIpv4()]);
 
             session('user_uid',$info['id']);
             $this->success('登录成功');
@@ -873,12 +873,12 @@ class Index extends Home
         $step = input('st',1);
         switch ($step){
             case 3:
-                $count = db('tousu')->where('real_ip',$this->request->ip())->count();
+                $count = db('tousu')->where('real_ip',getClientIpv4())->count();
                 if($count > 0){
-                    db('tousu')->where('real_ip',$this->request->ip())->setInc('count');
+                    db('tousu')->where('real_ip',getClientIpv4())->setInc('count');
                 }else{
                     db('tousu')->insert([
-                       'real_ip' => $this->request->ip(),
+                       'real_ip' => getClientIpv4(),
                        'count' => 1,
                         'create_time' => time(),
                         'status' => 1
@@ -956,7 +956,7 @@ class Index extends Home
             'money' => $money,
             'ticheng' => $ticheng_money,
             'create_time' => time(),
-            'real_ip' => $this->request->ip(),
+            'real_ip' => getClientIpv4(),
             'type' => $data['type'],
             'model' => $data['model'],
             'link_id' => $data['id']
