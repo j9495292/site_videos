@@ -13,6 +13,7 @@ class Notice extends Admin{
             ->field('id,title,content,create_time')
             ->paginate();
         return ZBuilder::make('table')
+            ->setTableName($this->tablename)
             ->addColumns([
                 ['id','编号'],
                 ['title','标题'],
