@@ -143,13 +143,32 @@ class Home extends Common
         $userinfo = $this->getUserInfo();
         //免登录获取
         if(empty($userinfo)){
+            $current_time = time();
             $num = db('order')
                 ->where('uid',$this->AGENT_ID)
                 ->where('real_ip',getClientIpv4())
                 ->where('status',1)
                 ->where('model',$type ? 'book' : 'video')
                 ->where('link_id',$id)
-                ->where('type','buy')
+                ->where(function($query) use ($current_time) {
+                    // 永久购买
+                    $query->where('type', 'buy');
+                    // 包天 - 24小时内有效
+                    $query->whereOr(function($q) use ($current_time) {
+                        $q->where('type', 'bao_day')
+                          ->where('update_time', '>', $current_time - 86400); // 24小时 = 86400秒
+                    });
+                    // 包周 - 7天内有效
+                    $query->whereOr(function($q) use ($current_time) {
+                        $q->where('type', 'bao_week')
+                          ->where('update_time', '>', $current_time - 604800); // 7天 = 604800秒
+                    });
+                    // 包月 - 30天内有效
+                    $query->whereOr(function($q) use ($current_time) {
+                        $q->where('type', 'bao_month')
+                          ->where('update_time', '>', $current_time - 2592000); // 30天 = 2592000秒
+                    });
+                })
                 ->where('is_log',0)
                 ->count();
             return $num > 0;
@@ -167,12 +186,31 @@ class Home extends Common
         $userinfo = $this->getUserInfo();
         //免登录获取
         if(empty($userinfo)){
+            $current_time = time();
             return db('order')
                 ->where('uid',$this->AGENT_ID)
                 ->where('real_ip',getClientIpv4())
                 ->where('status',1)
                 ->where('model',$type ? 'book' : 'video')
-                ->where('type','buy')
+                ->where(function($query) use ($current_time) {
+                    // 永久购买
+                    $query->where('type', 'buy');
+                    // 包天 - 24小时内有效
+                    $query->whereOr(function($q) use ($current_time) {
+                        $q->where('type', 'bao_day')
+                          ->where('update_time', '>', $current_time - 86400); // 24小时 = 86400秒
+                    });
+                    // 包周 - 7天内有效
+                    $query->whereOr(function($q) use ($current_time) {
+                        $q->where('type', 'bao_week')
+                          ->where('update_time', '>', $current_time - 604800); // 7天 = 604800秒
+                    });
+                    // 包月 - 30天内有效
+                    $query->whereOr(function($q) use ($current_time) {
+                        $q->where('type', 'bao_month')
+                          ->where('update_time', '>', $current_time - 2592000); // 30天 = 2592000秒
+                    });
+                })
                 ->where('is_log',0)
                 ->count();
         }
@@ -187,12 +225,31 @@ class Home extends Common
         $userinfo = $this->getUserInfo();
         //免登录获取
         if(empty($userinfo)){
+            $current_time = time();
             return db('order')
                 ->where('uid',$this->AGENT_ID)
                 ->where('real_ip',getClientIpv4())
                 ->where('status',1)
                 ->where('model',$type ? 'book' : 'video')
-                ->where('type','buy')
+                ->where(function($query) use ($current_time) {
+                    // 永久购买
+                    $query->where('type', 'buy');
+                    // 包天 - 24小时内有效
+                    $query->whereOr(function($q) use ($current_time) {
+                        $q->where('type', 'bao_day')
+                          ->where('update_time', '>', $current_time - 86400); // 24小时 = 86400秒
+                    });
+                    // 包周 - 7天内有效
+                    $query->whereOr(function($q) use ($current_time) {
+                        $q->where('type', 'bao_week')
+                          ->where('update_time', '>', $current_time - 604800); // 7天 = 604800秒
+                    });
+                    // 包月 - 30天内有效
+                    $query->whereOr(function($q) use ($current_time) {
+                        $q->where('type', 'bao_month')
+                          ->where('update_time', '>', $current_time - 2592000); // 30天 = 2592000秒
+                    });
+                })
                 ->where('is_log',0)
                 ->page($page,20)
                 ->field('id,link_id')

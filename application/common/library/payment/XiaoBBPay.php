@@ -91,12 +91,14 @@ class XiaoBBPay
         // 记录签名结果和完整参数
         $this->log('签名字符串', "待签名字符串: " . $this->getSignString($payParams) . " 签名结果: " . $sign);
         $this->log('完整请求参数', $payParams);
-
-        // 构建GET请求URL
-        $payUrlWithParams = $this->payUrl . '?' . http_build_query($payParams);
-        $this->log('请求URL', $payUrlWithParams);
-
-        return $payUrlWithParams;
+        $result = $this->sendGetRequest($this->payUrl, $payParams);
+        $this->log('请求结果', $result);
+        $result = json_decode($result, true);
+        if ($result['retCode'] !== "SUCCESS") {
+            $this->log('创建支付订单失败', $result['retMsg']);
+            throw new \Exception('创建支付订单失败');
+        }
+        return $result['payParams']['payUrl'];
     }
 
     /**

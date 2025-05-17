@@ -977,8 +977,8 @@ class Index extends Home
             exit('订单创建失败');
         }
 
-        $notify_url = "http://".$_SERVER['HTTP_HOST']."/index/callback/notify";
-        $return_url = "http://".$_SERVER['HTTP_HOST']."/index/callback/return";
+        $notify_url = "https://".$_SERVER['HTTP_HOST']."/index/callback/notify";
+        $return_url = "https://".$_SERVER['HTTP_HOST']."/index/callback/return";
         
         // 使用小白支付类处理支付请求
         try {
